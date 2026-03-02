@@ -1,0 +1,196 @@
+@startuml Kube_UseCaseDiagram
+title Kube Platform — Use Case Diagram
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam usecaseBorderColor #2E86AB
+skinparam usecaseBackgroundColor #F0F8FF
+skinparam actorBorderColor #A23B72
+skinparam packageBorderColor #999
+
+' ─────────────────────────────────────────
+' ACTORS
+' ─────────────────────────────────────────
+actor "Buyer / Customer" as Buyer
+actor "Seller / Supplier" as Seller
+actor "QC Officer" as QC
+actor "Admin (Kube Staff)" as Admin
+actor "Delivery Officer" as Delivery
+actor "Payment Gateway\n(Paystack or Monnify)" as PayGW <<system>>
+
+' ─────────────────────────────────────────
+' BUYER USE CASES
+' ─────────────────────────────────────────
+rectangle "Kube Platform" {
+
+  package "Authentication" {
+    usecase "Register Account" as UC_Register
+    usecase "Login / Logout" as UC_Login
+    usecase "Reset Password" as UC_ResetPwd
+  }
+
+  package "Product Discovery" {
+    usecase "Browse Products by Category" as UC_Browse
+    usecase "Search Products" as UC_Search
+    usecase "View Product Details" as UC_ViewProduct
+    usecase "Filter by Price / Condition" as UC_Filter
+  }
+
+  package "Buying" {
+    usecase "Add Item to Cart" as UC_AddCart
+    usecase "Checkout" as UC_Checkout
+    usecase "Enter Delivery Address" as UC_Address
+    usecase "Make Escrow Payment" as UC_Pay
+    usecase "Track Order Status" as UC_Track
+    usecase "Confirm Receipt" as UC_Confirm
+    usecase "Leave Product Review" as UC_Review
+  }
+
+  package "After-Sale" {
+    usecase "Request Return" as UC_Return
+    usecase "Request Refund" as UC_Refund
+    usecase "View Order History" as UC_History
+  }
+
+  ' ─────────────────────────────────────────
+  ' SELLER USE CASES
+  ' ─────────────────────────────────────────
+  package "Seller Portal" {
+    usecase "Apply to Become Seller" as UC_SellerApply
+    usecase "List New Product" as UC_ListProduct
+    usecase "Manage Inventory" as UC_Inventory
+    usecase "View Assigned Orders" as UC_ViewOrders
+    usecase "Ship Goods to QC Warehouse" as UC_ShipQC
+    usecase "View Payout Status" as UC_Payout
+  }
+
+  ' ─────────────────────────────────────────
+  ' QC OFFICER USE CASES
+  ' ─────────────────────────────────────────
+  package "QC Workflow" {
+    usecase "View Items for Inspection" as UC_QCView
+    usecase "Inspect / Test Item" as UC_Inspect
+    usecase "Approve Item (Pass QC)" as UC_QCPass
+    usecase "Flag Item (Fail QC)" as UC_QCFail
+    usecase "Log Repair Details" as UC_Repair
+    usecase "Mark Item Ready for Shipping" as UC_QCReady
+  }
+
+  ' ─────────────────────────────────────────
+  ' ADMIN USE CASES
+  ' ─────────────────────────────────────────
+  package "Admin Management" {
+    usecase "Approve / Reject Seller" as UC_ApproveSeller
+    usecase "Manage Users" as UC_ManageUsers
+    usecase "Manage Product Listings" as UC_ManageProducts
+    usecase "Manage All Orders" as UC_ManageOrders
+    usecase "Handle Disputes" as UC_Disputes
+    usecase "Release Escrow Payment" as UC_ReleaseEscrow
+    usecase "Generate Reports" as UC_Reports
+    usecase "Assign QC Officers to Warehouse" as UC_AssignQC
+  }
+
+  ' ─────────────────────────────────────────
+  ' DELIVERY USE CASES
+  ' ─────────────────────────────────────────
+  package "Delivery Management" {
+    usecase "View Delivery Assignments" as UC_DeliveryView
+    usecase "Pick Up from QC Warehouse" as UC_PickUp
+    usecase "Update Delivery Status" as UC_DeliveryStatus
+    usecase "Confirm Delivery (OTP)" as UC_DeliveryConfirm
+    usecase "Handle Return Pickup" as UC_ReturnPickup
+  }
+
+}
+
+' ─────────────────────────────────────────
+' BUYER ASSOCIATIONS
+' ─────────────────────────────────────────
+Buyer --> UC_Register
+Buyer --> UC_Login
+Buyer --> UC_ResetPwd
+Buyer --> UC_Browse
+Buyer --> UC_Search
+Buyer --> UC_ViewProduct
+Buyer --> UC_Filter
+Buyer --> UC_AddCart
+Buyer --> UC_Checkout
+Buyer --> UC_Pay
+Buyer --> UC_Track
+Buyer --> UC_Confirm
+Buyer --> UC_Review
+Buyer --> UC_Return
+Buyer --> UC_Refund
+Buyer --> UC_History
+
+UC_Checkout ..> UC_Address : <<include>>
+UC_Checkout ..> UC_AddCart : <<include>>
+UC_Pay ..> UC_Checkout : <<include>>
+UC_Filter ..> UC_Browse : <<extend>>
+UC_Search ..> UC_Browse : <<extend>>
+
+' ─────────────────────────────────────────
+' SELLER ASSOCIATIONS
+' ─────────────────────────────────────────
+Seller --> UC_Login
+Seller --> UC_SellerApply
+Seller --> UC_ListProduct
+Seller --> UC_Inventory
+Seller --> UC_ViewOrders
+Seller --> UC_ShipQC
+Seller --> UC_Payout
+
+UC_SellerApply ..> UC_ApproveSeller : <<extend>>
+
+' ─────────────────────────────────────────
+' QC OFFICER ASSOCIATIONS
+' ─────────────────────────────────────────
+QC --> UC_Login
+QC --> UC_QCView
+QC --> UC_Inspect
+QC --> UC_QCPass
+QC --> UC_QCFail
+QC --> UC_Repair
+QC --> UC_QCReady
+
+UC_Inspect ..> UC_QCPass : <<extend>>
+UC_Inspect ..> UC_QCFail : <<extend>>
+UC_QCFail ..> UC_Repair : <<extend>>
+UC_QCPass ..> UC_QCReady : <<include>>
+
+' ─────────────────────────────────────────
+' ADMIN ASSOCIATIONS
+' ─────────────────────────────────────────
+Admin --> UC_Login
+Admin --> UC_ApproveSeller
+Admin --> UC_ManageUsers
+Admin --> UC_ManageProducts
+Admin --> UC_ManageOrders
+Admin --> UC_Disputes
+Admin --> UC_ReleaseEscrow
+Admin --> UC_Reports
+Admin --> UC_AssignQC
+
+UC_Disputes ..> UC_Return : <<include>>
+UC_Disputes ..> UC_Refund : <<include>>
+UC_ReleaseEscrow ..> UC_Confirm : <<extend>>
+
+' ─────────────────────────────────────────
+' DELIVERY ASSOCIATIONS
+' ─────────────────────────────────────────
+Delivery --> UC_Login
+Delivery --> UC_DeliveryView
+Delivery --> UC_PickUp
+Delivery --> UC_DeliveryStatus
+Delivery --> UC_DeliveryConfirm
+Delivery --> UC_ReturnPickup
+
+' ─────────────────────────────────────────
+' EXTERNAL SYSTEM
+' ─────────────────────────────────────────
+PayGW --> UC_Pay
+PayGW --> UC_ReleaseEscrow
+PayGW --> UC_Refund
+
+@enduml

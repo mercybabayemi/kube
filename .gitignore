@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+kube-backend/venv/
+venv/
+
+# Environment files (secrets)
+kube-backend/.env
+kube-frontend/.env.local
+
+# Database artifacts
+kube-backend/test.db
+*.db
+
+# Next.js build output
+kube-frontend/.next/
+kube-frontend/out/
+
+# Node modules
+kube-frontend/node_modules/
+
+# Misc
+.DS_Store
+*.log
