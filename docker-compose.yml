@@ -1,0 +1,46 @@
+# ── Kube — docker-compose.yml ─────────────────────────────────────────────────
+# Run everything:  docker-compose up --build
+# Stop everything: docker-compose down
+# Rebuild one:     docker-compose up --build backend
+
+version: "3.9"
+
+services:
+
+  # ── Backend (FastAPI) ────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./kube-backend
+      dockerfile: Dockerfile
+    container_name: kube-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./kube-backend/.env
+    volumes:
+      # Persist the SQLite database file locally during development
+      - ./kube-backend/test.db:/app/test.db
+    networks:
+      - kube-network
+    restart: unless-stopped
+
+  # ── Frontend (Next.js) ───────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./kube-frontend
+      dockerfile: Dockerfile
+    container_name: kube-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./kube-frontend/.env.local
+    depends_on:
+      - backend
+    networks:
+      - kube-network
+    restart: unless-stopped
+
+# ── Shared network so frontend can reach backend ─────────────────────────────
+networks:
+  kube-network:
+    driver: bridge
