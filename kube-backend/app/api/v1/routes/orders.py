@@ -19,6 +19,12 @@ def my_orders(current_user: CurrentUser, db: DBSession):
     return order_service.get_buyer_orders(db, current_user.id)
 
 
+@router.get("/my-orders", response_model=list[OrderResponse])
+def my_orders_alias(current_user: CurrentUser, db: DBSession):
+    """Alias for the dashboard to fetch buyer orders."""
+    return order_service.get_buyer_orders(db, current_user.id)
+
+
 @router.get("/{order_id}", response_model=OrderResponse)
 def get_order(order_id: uuid.UUID, current_user: CurrentUser, db: DBSession):
     return order_service.get_order(db, order_id, current_user.id)

@@ -1,9 +1,14 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Shield, Package, Truck, CheckCircle, ArrowRight } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/product/ProductCard'
 import api from '@/lib/api'
+import { useAuthStore } from '@/store/authStore'
 
 const CATEGORIES = [
   { name: 'Phones', slug: 'phones', icon: '📱' },
@@ -15,17 +20,21 @@ const CATEGORIES = [
   { name: 'Auto', slug: 'auto', icon: '🚗' },
 ]
 
-async function getRecentProducts() {
-  try {
-    const res = await api.get('/products?page=1&page_size=6')
-    return res.data.items || []
-  } catch {
-    return []
-  }
-}
+export default function HomePage() {
+  const router = useRouter()
+  const { isAuthenticated } = useAuthStore()
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-export default async function HomePage() {
-  const products = await getRecentProducts()
+  useEffect(() => {
+    // Fetch products
+    api.get('/products?page=1&page_size=6')
+      .then(res => {
+        setProducts(res.data.items || [])
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
 
   return (
     <>
