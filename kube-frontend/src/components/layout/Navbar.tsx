@@ -1,18 +1,24 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { ShoppingCart, Search, User, LogOut, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useCartStore } from '@/store/cartStore'
 
 export default function Navbar() {
   const router = useRouter()
+  const pathname = usePathname()
   const { user, logout, isAuthenticated } = useAuthStore()
   const totalItems = useCartStore((s) => s.totalItems())
   const [search, setSearch] = useState('')
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,7 +38,7 @@ export default function Navbar() {
       DELIVERY_OFFICER: '/delivery',
       ADMIN: '/admin',
     }
-    return links[user.role] || '/account/orders'
+    return links[user.role] || '/dashboard'
   }
 
   return (
@@ -58,7 +64,7 @@ export default function Navbar() {
         </form>
 
         {/* Right actions */}
-        <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
+        <div className="flex items-center gap-3 flex-shrink-0 ml-auto justify-end">
           {/* Cart */}
           <Link href="/cart" className="relative p-2 text-gray-600 hover:text-kube-accent">
             <ShoppingCart className="w-5 h-5" />
@@ -69,52 +75,69 @@ export default function Navbar() {
             )}
           </Link>
 
-          {isAuthenticated() && user ? (
-            <div className="relative">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-kube-accent"
-              >
-                <User className="w-4 h-4" />
-                Hi, {user.name.split(' ')[0]}
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1">
-                  {getDashboardLink() && (
-                    <Link
-                      href={getDashboardLink()!}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                  )}
-                  <Link
-                    href="/account/orders"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    My Orders
+          {/* Auth section - only render after mount to avoid hydration mismatch */}
+          {mounted && (
+            isAuthenticated() && user ? (
+              pathname === '/' ? (
+                <div className="flex items-center gap-2">
+                  <Link href={getDashboardLink() || '/dashboard'} className="text-sm font-medium text-gray-700 hover:text-kube-accent">
+                    Dashboard
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                  <button 
+                    onClick={handleLogout} 
+                    className="text-sm font-medium text-red-600 hover:text-red-700 bg-red-50 px-3 py-1.5 rounded-md"
                   >
-                    <LogOut className="w-4 h-4" /> Logout
+                    Logout
                   </button>
                 </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Link href="/auth/login" className="text-sm font-medium text-gray-700 hover:text-kube-accent">
-                Login
-              </Link>
-              <Link href="/auth/register" className="btn-primary btn-sm text-sm">
-                Sign Up
-              </Link>
-            </div>
+              ) : (
+                <div className="relative">
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-kube-accent"
+                  >
+                    <User className="w-4 h-4" />
+                    Hi, {user.name.split(' ')[0]}
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1">
+                      {getDashboardLink() && (
+                        <Link
+                          href={getDashboardLink()!}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          Dashboard
+                        </Link>
+                      )}
+                      <Link
+                        href="/account/orders"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        My Orders
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                      >
+                        <LogOut className="w-4 h-4" /> Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/auth/login" className="text-sm font-medium text-gray-700 hover:text-kube-accent">
+                  Login
+                </Link>
+                <Link href="/auth/register" className="btn-primary btn-sm text-sm">
+                  Sign Up
+                </Link>
+              </div>
+            )
           )}
         </div>
       </div>

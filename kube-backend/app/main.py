@@ -2,6 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+from app.database import engine, Base
+# Import all models to ensure they are registered with Base.metadata
+from app.models import user, product, order, payment, review, qc, delivery, warehouse, return_model, refund
+
+# Create tables on startup (useful for local dev)
+Base.metadata.create_all(bind=engine)
 from app.api.v1.routes import (
     auth,
     products,
@@ -25,7 +31,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_URL],
+    allow_origins=["*"], # More permissive for dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

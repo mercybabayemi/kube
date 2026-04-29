@@ -1,19 +1,24 @@
+import bcrypt
 from datetime import datetime, timedelta, timezone
-
 from jose import jwt, JWTError
-from passlib.context import CryptContext
-
 from app.config import settings
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
+# We avoid passlib's bcrypt handler because it has compatibility issues 
+# with newer bcrypt versions (module 'bcrypt' has no attribute '__about__')
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    # bcrypt.hashpw expects bytes
+    pwd_bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(pwd_bytes, salt)
+    return hashed.decode('utf-8')
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    try:
+        return bcrypt.checkpw(plain.encode('utf-8'), hashed.encode('utf-8'))
+    except Exception:
+        return False
 
 
 def create_access_token(subject: str, role: str) -> str:

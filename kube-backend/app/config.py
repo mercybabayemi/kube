@@ -30,6 +30,12 @@ class Settings(BaseSettings):
     OTP_EXPIRE_SECONDS: int = 300
     DEFAULT_COMMISSION_RATE: float = 0.10
 
+    # SMTP (email OTP)
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str = ""
+    SMTP_PASSWORD: str = ""
+
     FRONTEND_URL: str = "http://localhost:3000"
 
 

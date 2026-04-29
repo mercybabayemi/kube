@@ -5,7 +5,9 @@ from app.core.dependencies import CurrentUser, DBSession
 from app.core.security import decode_token
 from app.database import get_db
 from app.schemas.auth import (
-    RegisterRequest, LoginRequest, OTPVerifyRequest, OTPResendRequest,
+    RegisterRequest, LoginRequest,
+    OTPVerifyRequest, OTPResendRequest,
+    OTPEmailVerifyRequest, OTPEmailResendRequest,
     SellerApplyRequest, TokenResponse, RefreshRequest, UserResponse,
 )
 from app.services import auth_service
@@ -30,6 +32,23 @@ def login(data: LoginRequest, db: DBSession):
     tokens = auth_service.login_user(db, data)
     return tokens
 
+
+# --- Email-based OTP (primary flow) ---
+
+@router.post("/otp/email/verify", response_model=TokenResponse)
+def verify_otp_email(data: OTPEmailVerifyRequest, db: DBSession):
+    """Verify the OTP sent to the user's email. Returns JWT tokens on success."""
+    tokens = auth_service.verify_otp_by_email(db, data.email, data.otp)
+    return tokens
+
+
+@router.post("/otp/email/resend")
+def resend_otp_email(data: OTPEmailResendRequest):
+    auth_service.resend_otp(data.email)
+    return {"message": "OTP sent to email"}
+
+
+# --- Phone-based OTP (legacy / kept for backward compat) ---
 
 @router.post("/otp/verify")
 def verify_otp(data: OTPVerifyRequest, db: DBSession):
