@@ -8,7 +8,7 @@ import re
 class RegisterRequest(BaseModel):
     name: str
     phone: str
-    email: EmailStr | None = None
+    email: EmailStr  # now REQUIRED — OTP is sent here
     password: str
 
     @field_validator("phone")
@@ -31,9 +31,22 @@ class RegisterRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    phone: str
+    email: EmailStr
     password: str
 
+
+# ----- OTP via Email -----
+
+class OTPEmailVerifyRequest(BaseModel):
+    email: EmailStr
+    otp: str
+
+
+class OTPEmailResendRequest(BaseModel):
+    email: EmailStr
+
+
+# ----- OTP via Phone (legacy) -----
 
 class OTPVerifyRequest(BaseModel):
     phone: str
@@ -81,7 +94,7 @@ class UserResponse(BaseModel):
     phone: str
     email: str | None
     role: str
-    phone_verified: bool
+    email_verified: bool
     created_at: datetime
 
     model_config = {"from_attributes": True}
