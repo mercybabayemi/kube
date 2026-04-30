@@ -29,8 +29,8 @@ export default function RegisterPage() {
   const onSubmit = async (data: FormData) => {
     setServerError(null)
     try {
-      await api.post('api/v1/auth/register', data)
-      router.push(`api/v1/auth/email/verify-otp?email=${encodeURIComponent(data.email)}`)
+      await api.post('auth/register', data)
+      router.push(`auth/email/verify-otp?email=${encodeURIComponent(data.email)}`)
     } catch (err: any) {
       const detail = err.response?.data?.detail
       if (Array.isArray(detail)) {
