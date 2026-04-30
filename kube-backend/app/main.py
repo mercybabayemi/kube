@@ -29,9 +29,14 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+origins = [
+    "http://localhost:3000",  # local dev
+    "https://kube-frontend-two.vercel.app",  # your deployed frontend
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # More permissive for dev
+    allow_origins=origins, # More permissive for dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
