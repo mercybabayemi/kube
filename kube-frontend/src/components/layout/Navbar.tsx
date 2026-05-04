@@ -78,56 +78,45 @@ export default function Navbar() {
           {/* Auth section - only render after mount to avoid hydration mismatch */}
           {mounted && (
             isAuthenticated() && user ? (
-              pathname === '/' ? (
-                <div className="flex items-center gap-2">
-                  <Link href={getDashboardLink() || '/dashboard'} className="text-sm font-medium text-gray-700 hover:text-kube-accent">
-                    Dashboard
-                  </Link>
-                  <button 
-                    onClick={handleLogout} 
-                    className="text-sm font-medium text-red-600 hover:text-red-700 bg-red-50 px-3 py-1.5 rounded-md"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="relative">
-                  <button
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-kube-accent"
-                  >
-                    <User className="w-4 h-4" />
-                    Hi, {user.name.split(' ')[0]}
-                    <ChevronDown className="w-3 h-3" />
-                  </button>
-                  {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1">
-                      {getDashboardLink() && (
-                        <Link
-                          href={getDashboardLink()!}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                          onClick={() => setDropdownOpen(false)}
-                        >
-                          Dashboard
-                        </Link>
-                      )}
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-kube-accent bg-gray-50 px-3 py-2 rounded-full border border-gray-100 transition-colors"
+                >
+                  <div className="w-6 h-6 bg-kube-accent/10 rounded-full flex items-center justify-center text-kube-accent">
+                    <User className="w-3.5 h-3.5" />
+                  </div>
+                  Hi, {user.name.split(' ')[0]}
+                  <ChevronDown className="w-3 h-3 ml-1 text-gray-400" />
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-1 overflow-hidden z-50">
+                    {getDashboardLink() && (
                       <Link
-                        href="/account/orders"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        href={getDashboardLink()!}
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-kube-accent transition-colors"
                         onClick={() => setDropdownOpen(false)}
                       >
-                        My Orders
+                        Dashboard
                       </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
-                      >
-                        <LogOut className="w-4 h-4" /> Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )
+                    )}
+                    <Link
+                      href="/account/orders"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-kube-accent transition-colors"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      My Orders
+                    </Link>
+                    <div className="h-px bg-gray-100 my-1"></div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <div className="flex items-center gap-2">
                 <Link href="/auth/login" className="text-sm font-medium text-gray-700 hover:text-kube-accent">

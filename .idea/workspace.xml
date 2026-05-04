@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="48b7f8a2-95e5-4019-83eb-fb2ec710ec19" name="Changes" comment="refactor: convert homepage to client component and add orders endpoint alias&#10;&#10;- Convert homepage from server-side to client-side rendering with useEffect for product fetching&#10;- Add alert utility classes (alert-success, alert-error) to global styles&#10;- Add /my-orders endpoint alias in orders router for dashboard compatibility">
+      <change beforePath="$PROJECT_DIR$/kube-frontend/src/app/account/orders/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/kube-frontend/src/app/account/orders/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube-frontend/src/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/kube-frontend/src/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube-frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/kube-frontend/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube-frontend/src/components/layout/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/kube-frontend/src/components/layout/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube-frontend/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/kube-frontend/tailwind.config.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="major-fix" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dark-royal&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mercybabayemi/kube.git&quot;,
+    &quot;accountId&quot;: &quot;bae6fee0-ac9e-4189-a7ce-7a1de1cba6cc&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;mercybabayemi&quot;,
+    &quot;repository&quot;: &quot;kube&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3CwuwkkVUHOWSsoCCbK4N7cw2Lj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix-register-otp-and-login&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Praise/Desktop/kube&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="kube" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="kube" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.27812.49" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.27812.49" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="48b7f8a2-95e5-4019-83eb-fb2ec710ec19" name="Changes" comment="" />
+      <created>1777309194152</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777309194152</updated>
+      <workItem from="1777309201783" duration="326000" />
+      <workItem from="1777369078677" duration="1081000" />
+      <workItem from="1777413136524" duration="6717000" />
+      <workItem from="1777447478884" duration="550000" />
+      <workItem from="1777450541831" duration="590000" />
+      <workItem from="1777458211974" duration="5469000" />
+      <workItem from="1777531502589" duration="579000" />
+      <workItem from="1777547257639" duration="580000" />
+      <workItem from="1777621578930" duration="1153000" />
+      <workItem from="1777647841291" duration="16000" />
+      <workItem from="1777662076899" duration="1442000" />
+      <workItem from="1777717070354" duration="581000" />
+      <workItem from="1777720276344" duration="594000" />
+      <workItem from="1777733647501" duration="1812000" />
+      <workItem from="1777826088742" duration="1202000" />
+      <workItem from="1777845228690" duration="554000" />
+      <workItem from="1777870410303" duration="561000" />
+      <workItem from="1777879174642" duration="598000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: migrate OTP verification from phone to email-based authentication&#10;&#10;- Replace phone-based OTP with email OTP for user registration and login&#10;- Update User model: rename `phone_verified` to `email_verified`&#10;- Add email sender utility with SMTP configuration for OTP delivery&#10;- Enhance verify-otp page with improved UX (paste support, auto-focus, masked email display)&#10;- Update login flow to require email instead of phone number&#10;- Add success/error status alerts to login page&#10;- Improve register page with better error handling and visual feedback&#10;- Fix bcrypt compatibility issues by replacing passlib with direct bcrypt usage&#10;- Add Redis fallback to in-memory storage for local development&#10;- Update Navbar with hydration-safe user state rendering&#10;- Create database tables on app startup for easier local development&#10;- Add new API endpoints: `/auth/otp/email/verify` and `/auth/otp/email/resend`&#10;- Update auth schemas to support email-based OTP flow&#10;- Maintain backward compatibility with legacy phone-based OTP endpoints">
+      <option name="closed" value="true" />
+      <created>1777473339387</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1777473339387</updated>
+    </task>
+    <task id="LOCAL-00002" summary="refactor: convert homepage to client component and add orders endpoint alias&#10;&#10;- Convert homepage from server-side to client-side rendering with useEffect for product fetching&#10;- Add alert utility classes (alert-success, alert-error) to global styles&#10;- Add /my-orders endpoint alias in orders router for dashboard compatibility">
+      <option name="closed" value="true" />
+      <created>1777473450128</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1777473450128</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: migrate OTP verification from phone to email-based authentication&#10;&#10;- Replace phone-based OTP with email OTP for user registration and login&#10;- Update User model: rename `phone_verified` to `email_verified`&#10;- Add email sender utility with SMTP configuration for OTP delivery&#10;- Enhance verify-otp page with improved UX (paste support, auto-focus, masked email display)&#10;- Update login flow to require email instead of phone number&#10;- Add success/error status alerts to login page&#10;- Improve register page with better error handling and visual feedback&#10;- Fix bcrypt compatibility issues by replacing passlib with direct bcrypt usage&#10;- Add Redis fallback to in-memory storage for local development&#10;- Update Navbar with hydration-safe user state rendering&#10;- Create database tables on app startup for easier local development&#10;- Add new API endpoints: `/auth/otp/email/verify` and `/auth/otp/email/resend`&#10;- Update auth schemas to support email-based OTP flow&#10;- Maintain backward compatibility with legacy phone-based OTP endpoints" />
+    <MESSAGE value="refactor: convert homepage to client component and add orders endpoint alias&#10;&#10;- Convert homepage from server-side to client-side rendering with useEffect for product fetching&#10;- Add alert utility classes (alert-success, alert-error) to global styles&#10;- Add /my-orders endpoint alias in orders router for dashboard compatibility" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: convert homepage to client component and add orders endpoint alias&#10;&#10;- Convert homepage from server-side to client-side rendering with useEffect for product fetching&#10;- Add alert utility classes (alert-success, alert-error) to global styles&#10;- Add /my-orders endpoint alias in orders router for dashboard compatibility" />
+  </component>
+  <component name="ai.zencoder.plugin.mcp">
+    <option name="internalToolsState" value="{&quot;file_search&quot;:true,&quot;list_resources&quot;:true,&quot;fulltext_search&quot;:true,&quot;read_resource&quot;:true}" />
+  </component>
+</project>
